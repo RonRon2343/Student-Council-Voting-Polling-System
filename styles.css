@@ -1,0 +1,584 @@
+:root {
+    --primary-green: #2e7d32;
+    --light-green: #4caf50;
+    --dark-green: #1b5e20;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --gray: #757575;
+    --light-gray: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url(./Images/BackgroundImage.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+    color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px var(--shadow);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+.section {
+    display: none;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--shadow);
+    border: 1px solid var(--light-gray);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--dark-green);
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--light-green);
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--primary-green);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: var(--dark-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-green);
+    border: 2px solid var(--primary-green);
+}
+
+.btn-secondary:hover {
+    background: var(--off-white);
+}
+
+.btn-danger {
+    background: #c62828;
+    color: var(--white);
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.btn-danger:hover {
+    background: #b71c1c;
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.btn-option {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    background: var(--off-white);
+    color: var(--dark-green);
+    border: 2px solid var(--light-green);
+    text-align: left;
+    padding: 15px;
+}
+
+.btn-option:hover {
+    background: var(--light-green);
+    color: var(--white);
+}
+
+.voter-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--white);
+    border-radius: 8px;
+    border-left: 4px solid var(--light-green);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: var(--light-gray);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--light-green) 0%, var(--primary-green) 100%);
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-text {
+    text-align: center;
+    color: var(--dark-green);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.candidates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.polls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.candidate-card, .poll-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: transform 0.3s;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.candidate-card:hover, .poll-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--shadow);
+    border-color: var(--light-green);
+}
+
+.poll-card.voted {
+    opacity: 0.7;
+    cursor: not-allowed;
+    border-color: var(--light-gray);
+}
+
+.poll-card.voted:hover {
+    transform: none;
+}
+
+.candidate-image, .poll-icon {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--light-green) 0%, var(--primary-green) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 3.5em;
+}
+
+.poll-icon {
+    height: 120px;
+    font-size: 3em;
+}
+
+.candidate-info, .poll-info {
+    padding: 20px;
+}
+
+.candidate-name, .poll-question {
+    font-size: 1.2em;
+    color: var(--dark-green);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.candidate-position {
+    color: var(--light-green);
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.candidate-platform {
+    color: #666;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.poll-type {
+    display: inline-block;
+    background: var(--light-green);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+.poll-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.poll-status.voted {
+    background: #e8f5e9;
+    color: var(--dark-green);
+}
+
+.poll-status.pending {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+.confirmation-card {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.selected-candidate {
+    background: var(--off-white);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--light-green);
+    text-align: left;
+}
+
+.ballot-review {
+    text-align: left;
+    margin: 20px 0;
+}
+
+.ballot-item {
+    background: var(--off-white);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 4px solid var(--light-green);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ballot-item .position {
+    font-weight: 600;
+    color: var(--dark-green);
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.ballot-item .candidate {
+    color: #333;
+    font-size: 1.1em;
+}
+
+.change-btn {
+    background: none;
+    border: none;
+    color: var(--light-green);
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: underline;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.success-card {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--light-green);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 20px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.results-container {
+    margin-top: 15px;
+}
+
+.position-group {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.position-title {
+    color: var(--dark-green);
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result-bar {
+    margin-bottom: 10px;
+}
+
+.result-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.result-progress {
+    height: 25px;
+    background: var(--light-gray);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.result-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--light-green) 0%, var(--primary-green) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: width 0.5s ease;
+}
+
+.poll-item {
+    background: var(--off-white);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--light-green);
+}
+
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.message.error {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.message.success {
+    background: #e8f5e9;
+    color: var(--dark-green);
+}
+
+.admin-hint {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--gray);
+}
+
+.table-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.table-card {
+    background: var(--off-white);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--light-green);
+}
+
+.table-card h4 {
+    color: var(--dark-green);
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.table-card p {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.table-card .count {
+    display: inline-block;
+    background: var(--light-green);
+    color: var(--white);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+/* Data Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.data-table th {
+    background: var(--off-white);
+    color: var(--dark-green);
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+.data-table tr:hover {
+    background: var(--off-white);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.status-badge.voted {
+    background: #e8f5e9;
+    color: var(--dark-green);
+}
+
+.status-badge.not-voted {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .candidates-grid, .polls-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    .table-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .ballot-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .data-table {
+        font-size: 0.8em;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 8px;
+    }
+}

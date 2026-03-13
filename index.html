@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Council Voting & Polling System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> Student Council Voting & Polling System</h1>
+            <p class="subtitle">Secure, Fast, and Transparent School Elections</p>
+        </header>
+
+        <section id="loginSection" class="section active">
+            <div class="card">
+                <h2>Voter Authentication</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="studentId">Student ID</label>
+                        <input type="text" id="studentId" placeholder="Enter your student ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login to Vote</button>
+                </form>
+                <p id="loginMessage" class="message"></p>
+            </div>
+        </section>
+
+        <section id="votingSection" class="section">
+            <div class="voter-info">
+                <span>Welcome, <strong id="voterName">Student</strong></span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="votingProgress"></div>
+            </div>
+            <p class="progress-text" id="progressText">Step 1 of 6: President</p>
+            
+            <h2 id="positionTitle">Vote for President</h2>
+            <div id="candidatesList" class="candidates-grid">
+            </div>
+            
+            <h2 style="margin-top: 40px;">Active Polls</h2>
+            <div id="voterPollsList" class="polls-grid">
+            </div>
+        </section>
+
+        <section id="confirmationSection" class="section">
+            <div class="card confirmation-card">
+                <h2>Confirm Your Selection</h2>
+                <div id="selectedCandidate" class="selected-candidate"></div>
+                <div class="confirmation-actions">
+                    <button onclick="confirmVote()" class="btn btn-primary">Confirm</button>
+                    <button onclick="backToVoting()" class="btn btn-secondary">Go Back</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviewSection" class="section">
+            <div class="card confirmation-card">
+                <h2>Review Your Ballot</h2>
+                <div id="ballotReview" class="ballot-review"></div>
+                <div class="confirmation-actions">
+                    <button onclick="submitFinalBallot()" class="btn btn-primary">Submit Final Ballot</button>
+                    <button onclick="editBallot()" class="btn btn-secondary">Edit Choices</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="pollVoteSection" class="section">
+            <div class="card confirmation-card">
+                <h2>Vote in Poll</h2>
+                <div id="pollVoteInfo" class="selected-candidate"></div>
+                <div id="pollOptionsContainer"></div>
+                <div class="confirmation-actions" style="margin-top: 20px;">
+                    <button onclick="backToVoting()" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="successSection" class="section">
+            <div class="card success-card">
+                <div class="success-icon">✓</div>
+                <h2>Ballot Submitted Successfully!</h2>
+                <p>All your votes have been recorded securely and cannot be altered.</p>
+                <button onclick="logout()" class="btn btn-primary">Return to Login</button>
+            </div>
+        </section>
+
+        <section id="pollSuccessSection" class="section">
+            <div class="card success-card">
+                <div class="success-icon">✓</div>
+                <h2>Poll Response Recorded!</h2>
+                <p>Your response has been saved. Thank you for your feedback!</p>
+                <button onclick="backToVoting()" class="btn btn-primary">Back to Voting</button>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </section>
+
+        <section id="adminSection" class="section">
+            <div class="voter-info">
+                <span><strong>Admin Dashboard</strong></span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Real-time Election Results</h3>
+                    <div id="resultsChart" class="results-container"></div>
+                </div>
+                
+                <div class="card">
+                    <h3>Create New Poll</h3>
+                    <form id="pollForm">
+                        <div class="form-group">
+                            <label>Poll Question</label>
+                            <input type="text" id="pollQuestion" placeholder="Enter your question" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Poll Type</label>
+                            <select id="pollType">
+                                <option value="yesno">Yes / No</option>
+                                <option value="multiple">Multiple Choice</option>
+                            </select>
+                        </div>
+                        <div id="pollOptions" class="form-group">
+                            <label>Options (comma separated)</label>
+                            <input type="text" id="pollOptionsInput" placeholder="Option 1, Option 2, Option 3">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Poll</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Account Maker - Create Voter Accounts</h3>
+                <form id="accountForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Student Number</label>
+                            <input type="text" id="newStudentNumber" placeholder="e.g., S1004" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="newStudentName" placeholder="e.g., John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="newStudentPassword" placeholder="Enter password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="confirmStudentPassword" placeholder="Confirm password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Create Account</button>
+                </form>
+                <p id="accountMessage" class="message" style="margin-top: 15px;"></p>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>Voter Management</h3>
+                <div style="max-height: 300px; overflow-y: auto;">
+                    <table class="data-table" id="voterTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student #</th>
+                                <th>Name</th>
+                                <th>Voted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="voterTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>Poll Results</h3>
+                <div id="activePolls"></div>
+            </div>
+            
+        </section>
+    </div>
+</body>
+</html>
